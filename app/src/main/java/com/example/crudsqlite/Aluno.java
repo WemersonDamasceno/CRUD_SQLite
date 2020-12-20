@@ -82,4 +82,9 @@ public class Aluno implements Parcelable {
         parcel.writeString(cpf);
         parcel.writeString(telefone);
     }
+
+    @Override
+    public String toString() {
+        return "Nome: "+nome+"\nCPF: "+cpf+"\nTelefone: "+telefone;
+    }
 }

@@ -1,20 +1,25 @@
 package com.example.crudsqlite;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.UUID;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 EditText nome;
 EditText cpf;
 EditText telefone;
 Button btnSalvar;
+Button btnListaAlunos;
 AlunoDAO alunoDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,7 @@ AlunoDAO alunoDAO;
         cpf = findViewById(R.id.cpfAlunoForm);
         telefone = findViewById(R.id.tellAlunoForm);
         btnSalvar = findViewById(R.id.btnSalvar);
+        btnListaAlunos = findViewById(R.id.btnListaAlunos);
         alunoDAO = new AlunoDAO(this);
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +50,13 @@ AlunoDAO alunoDAO;
         });
 
 
+        btnListaAlunos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(),ListarAlunosActivity.class));
+            }
+        });
+
 
 
 
@@ -55,5 +68,28 @@ AlunoDAO alunoDAO;
         nome.setText("");
         cpf.setText("");
         telefone.setText("");
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int op = item.getItemId();
+        if(op == R.id.adicionar){
+            startActivity(new Intent(getBaseContext(), MainActivity.class));
+        }else if(op == R.id.procurar){
+            startActivity(new Intent(getBaseContext(), ProcurarActivity.class));
+        }else if(op == R.id.listar){
+            startActivity(new Intent(getBaseContext(), ListarAlunosActivity.class));
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }
